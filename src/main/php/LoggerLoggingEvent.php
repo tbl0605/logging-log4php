@@ -342,7 +342,7 @@ class LoggerLoggingEvent {
 	 * @return string
 	 */
 	public function toString() {
-		serialize($this);
+		return serialize($this);
 	}
 	
 	/**

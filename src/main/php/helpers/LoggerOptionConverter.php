@@ -98,6 +98,18 @@ class LoggerOptionConverter {
 		throw new LoggerException("Given value [" . var_export($value, true) . "] cannot be converted to integer.");
 	}
 	
+	/** Converts $value to a number (int or float), or throws an exception if not possible. */
+	public static function toNumericEx($value) {
+		if (is_int($value) || is_float($value)) {
+			return $value;
+		}
+		if (is_numeric($value)) {
+			return $value + 0;
+		}
+	
+		throw new LoggerException("Given value [" . var_export($value, true) . "] cannot be converted to number.");
+	}
+	
 	/**
 	 * Converts $value to integer, or throws an exception if not possible.
 	 * Floats cannot be converted to integer.

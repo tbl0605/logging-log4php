@@ -102,6 +102,9 @@ class LoggerAppenderPDO extends LoggerAppender {
 	 */
 	protected $preparedInsert;
 	
+	/** Parsed insert-pattern converters. */
+	protected $converters = array();
+	
 	/** This appender does not require a layout. */
 	protected $requiresLayout = false;
 
@@ -276,7 +279,7 @@ class LoggerAppenderPDO extends LoggerAppender {
 	}
 	
 	/** Returns the DSN string. */
-	public function getDSN($dsn) {
-		return $this->setString('dsn', $dsn);
+	public function getDSN() {
+		return $this->dsn;
 	}	
 }

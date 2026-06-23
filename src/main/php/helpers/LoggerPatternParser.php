@@ -90,6 +90,7 @@ class LoggerPatternParser {
 		}
 		
 		$prevEnd = 0;
+		$end = 0;
 		
 		foreach($matches[0] as $key => $item) {
 			

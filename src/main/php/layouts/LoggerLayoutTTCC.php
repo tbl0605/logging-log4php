@@ -162,7 +162,7 @@ class LoggerLayoutTTCC extends LoggerLayout {
 	 */
 	public function format(LoggerLoggingEvent $event) {
 		$timeStamp = (float)$event->getTimeStamp();
-		$format = strftime($this->dateFormat, (int)$timeStamp);
+		$format = LoggerUtils::strftime($this->dateFormat, (int)$timeStamp);
 		
 		if ($this->microSecondsPrinting) {
 			$usecs = floor(($timeStamp - (int)$timeStamp) * 1000);
