@@ -47,13 +47,27 @@ class LoggerUtils {
 		'%c' => 'Y-m-d H:i:s',
 		'%x' => 'm/d/Y',
 		'%X' => 'H:i:s',
+		'%D' => 'm/d/y',
+		'%F' => 'Y-m-d',
+		'%T' => 'H:i:s',
+		'%R' => 'H:i',
+		'%r' => 'h:i:s A',
+		'%z' => 'O',
+		'%Z' => 'T',
+		'%w' => 'w',
+		'%j' => 'z',
+		'%U' => 'W',
+		'%W' => 'W',
+		'%n' => "\n",
+		'%t' => "\t",
 	);
 	
 	/**
 	 * Formats a timestamp using a strftime-style format string.
 	 *
 	 * Uses strftime() when available (PHP before 8.3). Otherwise converts
-	 * common strftime specifiers to date() format characters.
+	 * common strftime specifiers to date() format characters. Unrecognized
+	 * specifiers trigger a warning and are left unchanged.
 	 *
 	 * @param string $format strftime-style format string
 	 * @param integer $timestamp Unix timestamp
@@ -66,6 +80,12 @@ class LoggerUtils {
 		$escaped = str_replace('%%', "\0", $format);
 		$dateFormat = strtr($escaped, self::$strftimeToDate);
 		$dateFormat = str_replace("\0", '%', $dateFormat);
+		if (preg_match('/%(?!%)[a-zA-Z%]/', $dateFormat)) {
+			trigger_error(
+				"log4php: strftime format [$format] contains unsupported specifiers on PHP 8.3+. Output may be incorrect.",
+				E_USER_WARNING
+			);
+		}
 		return date($dateFormat, $timestamp);
 	}
 	

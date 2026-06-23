@@ -60,7 +60,7 @@ class LoggerLayoutTTCC extends LoggerLayout {
 	protected $microSecondsPrinting = true;
 	
 	/**
-	 * @var string date format. See {@link PHP_MANUAL#strftime} for details
+	 * @var string date format. See {@link LoggerUtils::strftime()} for details
 	 */
 	protected $dateFormat = '%c';
 

@@ -71,7 +71,10 @@ class LoggerOptionConverter {
 			if (is_bool($value)) {
 				return $value;
 			}
-			$value = strtolower(trim($value));
+			if (!is_scalar($value)) {
+				throw new LoggerException("Given value [" . var_export($value, true) . "] cannot be converted to boolean.");
+			}
+			$value = strtolower(trim((string) $value));
 			if (in_array($value, self::$trueValues)) {
 				return true;
 			}

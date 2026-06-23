@@ -121,6 +121,11 @@ class LoggerAppenderMongoDB extends LoggerAppender {
 	 * creates a {@link $collection}. 
 	 */
 	public function activateOptions() {
+		if (!class_exists('Mongo')) {
+			$this->closed = true;
+			$this->warn('The legacy mongo extension is not installed. Closing appender.');
+			return;
+		}
 		try {
 			$this->connection = new Mongo(sprintf('%s:%d', $this->host, $this->port), array('timeout' => $this->timeout));
 			$db	= $this->connection->selectDB($this->databaseName);
@@ -153,7 +158,7 @@ class LoggerAppenderMongoDB extends LoggerAppender {
 			if ($this->collection != null) {
 				$this->collection->insert($this->format($event));
 			}
-		} catch (MongoCursorException $ex) {
+		} catch (Exception $ex) {
 			$this->warn(sprintf('Error while writing to mongo collection: %s', $ex->getMessage()));
 		}
 	}
@@ -197,10 +202,10 @@ class LoggerAppenderMongoDB extends LoggerAppender {
 	 * 
 	 * Supports innner exceptions (PHP >= 5.3)
 	 * 
-	 * @param Exception $ex
+	 * @param Throwable $ex
 	 * @return array
 	 */
-	protected function formatThrowable(Exception $ex) {
+	protected function formatThrowable(Throwable $ex) {
 		$array = array(				
 			'message' => $ex->getMessage(),
 			'code' => $ex->getCode(),
