@@ -80,10 +80,15 @@ class LoggerLayoutXml extends LoggerLayout {
 	protected $log4jNamespace = false;
 	
 	/** The namespace in use. */
-	protected $namespace = self::LOG4PHP_NS;
+	protected $namespace;
 	
 	/** The namespace prefix in use */
-	protected $namespacePrefix = self::LOG4PHP_NS_PREFIX;
+	protected $namespacePrefix;
+	
+	public function __construct() {
+		$this->namespace = self::LOG4PHP_NS;
+		$this->namespacePrefix = self::LOG4PHP_NS_PREFIX;
+	}
 	 
 	public function activateOptions() {
 		if ($this->getLog4jNamespace()) {

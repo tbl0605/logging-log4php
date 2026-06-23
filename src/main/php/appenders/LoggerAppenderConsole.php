@@ -44,13 +44,18 @@
 	const STDERR = 'php://stderr';
 
 	/** The 'target' parameter. */
-	protected $target = self::STDOUT;
+	protected $target;
 	
 	/**
 	 * Stream resource for the target stream.
 	 * @var resource
 	 */
 	protected $fp = null;
+
+	public function __construct($name = '') {
+		parent::__construct($name);
+		$this->target = self::STDOUT;
+	}
 
 	public function activateOptions() {
 		$this->fp = fopen($this->target, 'w');

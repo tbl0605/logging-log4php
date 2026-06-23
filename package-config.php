@@ -97,6 +97,6 @@ $dependency = array();
 
 $channel = 'pear.apache.org/log4php';
 $require = array(
-	'php' => '5.2.0',
+	'php' => '7.1.0',
 	'pear_installer' => '1.7.0',
 );

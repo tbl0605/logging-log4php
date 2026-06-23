@@ -14,6 +14,11 @@
         "classmap": ["src/main/php/"]
     },
     "require": {
-        "php": ">=5.2.7"
+        "php": ">=7.1"
+    },
+    "suggest": {
+        "ext-libxml": "For XML configuration adapter",
+        "ext-pdo": "For LoggerAppenderPDO",
+        "ext-zlib": "For compressed rolling file appender"
     }
 }

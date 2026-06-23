@@ -40,15 +40,21 @@ class LoggerPatternConverterDate extends LoggerPatternConverter {
 	
 	const DATE_FORMAT_DATE = 'd M Y H:i:s.u';
 	
-	private $format = self::DATE_FORMAT_ISO8601;
+	private $format;
 	
-	private $specials = array(
-		'ISO8601' => self::DATE_FORMAT_ISO8601,
-		'ABSOLUTE' => self::DATE_FORMAT_ABSOLUTE,
-		'DATE' => self::DATE_FORMAT_DATE,
-	);
+	private $specials;
 	
 	private $useLocalDate = false;
+	
+	public function __construct($formattingInfo = null, $option = null) {
+		$this->format = self::DATE_FORMAT_ISO8601;
+		$this->specials = array(
+			'ISO8601' => self::DATE_FORMAT_ISO8601,
+			'ABSOLUTE' => self::DATE_FORMAT_ABSOLUTE,
+			'DATE' => self::DATE_FORMAT_DATE,
+		);
+		parent::__construct($formattingInfo, $option);
+	}
 	
 	public function activateOptions() {
 		

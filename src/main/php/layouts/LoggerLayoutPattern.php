@@ -39,7 +39,7 @@ class LoggerLayoutPattern extends LoggerLayout {
 	const TTCC_CONVERSION_PATTERN = '%d [%t] %p %c %x - %m%n';
 
 	/** The conversion pattern. */ 
-	protected $pattern = self::DEFAULT_CONVERSION_PATTERN;
+	protected $pattern;
 	
 	/** Maps conversion keywords to the relevant converter (default implementation). */
 	protected static $defaultConverterMap = array(
@@ -127,6 +127,7 @@ class LoggerLayoutPattern extends LoggerLayout {
 	
 	/** Constructor. Initializes the converter map. */
 	public function __construct() {
+		$this->pattern = self::DEFAULT_CONVERSION_PATTERN;
 		$this->converterMap = self::$defaultConverterMap;
 	}
 	

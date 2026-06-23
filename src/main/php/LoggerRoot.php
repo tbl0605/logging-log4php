@@ -29,9 +29,9 @@ class LoggerRoot extends Logger {
 	/**
 	 * Constructor
 	 *
-	 * @param integer $level initial log level
+	 * @param Logger $level initial log level
 	 */
-	public function __construct(?LoggerLevel $level = null) {
+	public function __construct($level = null) {
 		parent::__construct('root');
 
 		if($level == null) {
@@ -53,7 +53,7 @@ class LoggerRoot extends Logger {
 	 * 
 	 * @param LoggerLevel $level
 	 */
-	public function setLevel(?LoggerLevel $level = null) {
+	public function setLevel($level = null) {
 		if (isset($level)) {
 			parent::setLevel($level);
 		} else {
