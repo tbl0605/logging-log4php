@@ -346,9 +346,37 @@ class LoggerLoggingEvent {
 	}
 	
 	/**
-	 * Avoid serialization of the {@link $logger} object
+	 * @return array
 	 */
 	public function __sleep() {
+		return $this->getSerializablePropertyNames();
+	}
+
+	/**
+	 * @return array
+	 */
+	public function __serialize() {
+		$data = array();
+		foreach ($this->getSerializablePropertyNames() as $name) {
+			$data[$name] = $this->$name;
+		}
+		return $data;
+	}
+
+	/**
+	 * @param array $data
+	 */
+	public function __unserialize(array $data) {
+		foreach ($data as $name => $value) {
+			$this->$name = $value;
+		}
+	}
+
+	/**
+	 * Avoid serialization of the {@link $logger} object
+	 * @return array
+	 */
+	private function getSerializablePropertyNames() {
 		return array(
 			'fqcn',
 			'categoryName',
@@ -360,6 +388,7 @@ class LoggerLoggingEvent {
 			'threadName',
 			'timeStamp',
 			'locationInfo',
+			'throwableInfo',
 		);
 	}
 
